@@ -1,0 +1,216 @@
+{# TEMPLATE VAR SETTINGS #}
+{%- set url_root = pathto('', 1) %}
+{%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
+{%- if not embedded and docstitle %}
+  {%- set titlesuffix = " &mdash; "|safe + docstitle|e %}
+{%- else %}
+  {%- set titlesuffix = "" %}
+{%- endif %}
+{%- set lang_attr = 'en' if language == None else (language | replace('_', '-')) %}
+
+<!DOCTYPE html>
+<html lang="{{ lang_attr }}" >
+<head>
+  <meta charset="utf-8">
+  {{ metatags }}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block htmltitle %}
+  <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
+  {% endblock %}
+
+  {# CSS #}
+  <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
+  <link rel="stylesheet" href="{{ pathto('_static/custom.css', 1) }}" type="text/css" />
+  <link rel="stylesheet" href="{{ pathto('_static/pygments.css', 1) }}" type="text/css" />
+  {%- for css in css_files %}
+    {%- if css|attr("rel") %}
+  <link rel="{{ css.rel }}" href="{{ pathto(css.filename, 1) }}" type="text/css"{% if css.title is not none %} title="{{ css.title }}"{% endif %} />
+    {%- else %}
+  <link rel="stylesheet" href="{{ pathto(css, 1) }}" type="text/css" />
+    {%- endif %}
+  {%- endfor %}
+
+  {%- for cssfile in extra_css_files %}
+    <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
+  {%- endfor %}
+
+  {# FAVICON #}
+  {% if favicon %}
+    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
+  {% endif %}
+  {# CANONICAL URL #}
+  {% if theme_canonical_url %}
+    <link rel="canonical" href="{{ theme_canonical_url }}{{ pagename }}.html"/>
+  {% endif %}
+
+  {# JAVASCRIPTS #}
+  {%- block scripts %}
+  <!--[if lt IE 9]>
+    <script src="{{ pathto('_static/js/html5shiv.min.js', 1) }}"></script>
+  <![endif]-->
+  {%- if not embedded %}
+  {# XXX Sphinx 1.8.0 made this an external js-file, quick fix until we refactor the template to inherert more blocks directly from sphinx #}
+    {% if sphinx_version >= "1.8.0" %}
+      <script type="text/javascript" id="documentation_options" data-url_root="{{ pathto('', 1) }}" src="{{ pathto('_static/documentation_options.js', 1) }}"></script>
+      {%- for scriptfile in script_files %}
+        {{ js_tag(scriptfile) }}
+      {%- endfor %}
+    {% else %}
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'{{ url_root }}',
+              VERSION:'{{ release|e }}',
+              LANGUAGE:'{{ language }}',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'{{ '' if no_search_suffix else file_suffix }}',
+              HAS_SOURCE:  {{ has_source|lower }},
+              SOURCELINK_SUFFIX: '{{ sourcelink_suffix }}'
+          };
+      </script>
+      {%- for scriptfile in script_files %}
+        <script type="text/javascript" src="{{ pathto(scriptfile, 1) }}"></script>
+      {%- endfor %}
+    {% endif %}
+    <script type="text/javascript" src="{{ pathto('_static/mui.min.js', 1) }}"></script>
+
+    {# OPENSEARCH #}
+    {%- if use_opensearch %}
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="{% trans docstitle=docstitle|e %}Search within {{ docstitle }}{% endtrans %}"
+          href="{{ pathto('_static/opensearch.xml', 1) }}"/>
+    {%- endif %}
+  {%- endif %}
+  {%- endblock %}
+
+  {%- block linktags %}
+    {%- if hasdoc('about') %}
+    <link rel="author" title="{{ _('About these documents') }}" href="{{ pathto('about') }}" />
+    {%- endif %}
+    {%- if hasdoc('genindex') %}
+    <link rel="index" title="{{ _('Index') }}" href="{{ pathto('genindex') }}" />
+    {%- endif %}
+    {%- if hasdoc('search') %}
+    <link rel="search" title="{{ _('Search') }}" href="{{ pathto('search') }}" />
+    {%- endif %}
+    {%- if hasdoc('copyright') %}
+    <link rel="copyright" title="{{ _('Copyright') }}" href="{{ pathto('copyright') }}" />
+    {%- endif %}
+    {%- if next %}
+    <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
+    {%- endif %}
+    {%- if prev %}
+    <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
+    {%- endif %}
+  {%- endblock %}
+  {%- block extrahead %} {% endblock %}
+</head>
+
+<body>
+  <header id="header" class="mui--z2">
+    <div class="mui-appbar mui--appbar-line-height">
+        <div class="mui-container-fluid">
+            <a class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer">☰</a>
+            <a class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer">☰</a>
+            {% include "breadcrumbs.html" %}
+        </div>
+    </div>
+</header>
+
+{% block extrabody %} {% endblock %}
+
+<div id="sidedrawer" class="mui--no-user-select">
+  <div id="sidedrawer-brand" class="mui--appbar-line-height">
+    {% block sidebartitle %}
+    {% if logo and theme_logo_only %}
+      <a href="{{ pathto(master_doc) }}">
+    {% else %}
+      <a href="{{ pathto(master_doc) }}" class="mui--text-title" alt="{{ _("Documentation Home") }}"> {{ project }}
+    {% endif %}
+
+    {% if logo %}
+      {# Not strictly valid HTML, but it's the only way to display/scale
+        it properly, without weird scripting or heaps of work
+      #}
+      <img src="{{ pathto('_static/' + logo, 1) }}" class="logo" alt="{{ _('Logo') }}"/>
+    {% endif %}
+    </a>
+    {% endblock %}
+  </div>
+  <div class="mui-divider"></div>
+  <div class="sidedrawer">
+    {% block navigation %}
+      {% block menu %}
+        {#
+          The singlehtml builder doesn't handle this toctree call when the
+          toctree is empty. Skip building this for now.
+        #}
+        {% if 'singlehtml' not in builder %}
+          {% set global_toc = toctree(maxdepth=theme_navigation_depth|int,
+                                      collapse=theme_collapse_navigation|tobool,
+                                      includehidden=theme_includehidden|tobool,
+                                      titles_only=theme_titles_only|tobool) %}
+        {% endif %}
+        {% if global_toc %}
+          <div class="global-toc">{{ global_toc }}</div>
+        {% else %}
+          <!-- Local TOC -->
+          <div class="local-toc">{{ toc }}</div>
+        {% endif %}
+    {% endblock %}
+  </div>
+
+  {% endblock %}
+</div>
+<div id="root-container">
+  <div id="content-wrapper">
+    <!-- Main content goes here -->
+    <div class="mui--appbar-height"></div>
+      <div class="mui-container-fluid">
+        {%- block content %}
+          {% if theme_style_external_links|tobool %}
+          <div class="rst-content style-external-links mui-col-sm-10 mui-col-sm-offset-1">
+          {% else %}
+          <div class="rst-content mui-col-sm-10 mui-col-sm-offset-1">
+          {% endif %}
+            <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            {%- block document %}
+             <div itemprop="articleBody">
+              {% block body %}{% endblock %}
+             </div>
+             {% if self.comments()|trim %}
+             <div class="articleComments">
+              {% block comments %}{% endblock %}
+             </div>
+             {% endif%}
+            </div>
+            {%- endblock %}
+          </div>
+          <div class="mui-container-fluid mui-col-sm-10 mui-col-sm-offset-1">
+            <div class="row mui-panel">
+              <div id="vcomments"></div>
+            </div>
+          </div>
+        {%- endblock %}
+      </div>
+      <div id="push"></div>
+  </div>
+  {% include "footer.html" %}
+</div>
+{% include "versions.html" %}
+
+<script type="text/javascript" src="{{ pathto('_static/custom.js', 1) }}"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+  new Valine({
+    el: '#vcomments',
+    appId: '{{ theme_valine_appid }}',
+    appKey: '{{ theme_valine_appkey }}',
+    placeholder: '{{ theme_valine_placeholder }}'
+  })
+</script>
+
+
+{%- block footer %} {% endblock %}
+
+</body>
+</html>

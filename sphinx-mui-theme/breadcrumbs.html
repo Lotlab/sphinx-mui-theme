@@ -1,0 +1,9 @@
+{# Support for Sphinx 1.3+ page_source_suffix, but don't break old builds. #}
+
+{% block breadcrumbs %}
+  {% for doc in parents %}
+    <a href="{{ doc.link|e }}" class="appbar-brand mui--hidden-xs">{{ doc.title }}</a>
+    <b class="appbar-brand octicon octicon-chevron-right mui--hidden-xs"></b>
+  {% endfor %}
+<span class="appbar-brand">{{ title }}</span>
+{% endblock %}

@@ -1,0 +1,35 @@
+<footer id="footer">
+  <div class="mui-container-fluid">
+    {%- if show_copyright %}
+      {%- if hasdoc('copyright') %}
+        {% set path = pathto('copyright') %}
+        {% set copyright = copyright|e %}
+        &copy; <a href="{{ path }}">{% trans %}Copyright{% endtrans %}</a> {{ copyright }}
+      {%- else %}
+        {% set copyright = copyright|e %}
+        &copy; {% trans %}Copyright{% endtrans %} {{ copyright }}
+      {%- endif %}
+    {%- endif %}
+
+    {%- if build_id and build_url %}
+      <span class="build">
+        {# Translators: Build is a noun, not a verb #}
+        {% trans %}Build{% endtrans %}
+        <a href="{{ build_url }}">{{ build_id }}</a>.
+      </span>
+    {%- elif commit %}
+      <span class="commit">
+        {% trans %}Revision{% endtrans %} <code>{{ commit }}</code>.
+      </span>
+    {%- elif last_updated %}
+      <span class="lastupdated">
+        {% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}
+      </span>
+    {%- endif %}
+    {%- if show_sphinx %}
+       自豪的使用<a href="http://sphinx-doc.org/"  target="_blank">斯芬克斯</a>
+    {%- endif %}
+
+    {%- block extrafooter %} {% endblock %}
+  </div>
+</footer>
