@@ -112,13 +112,14 @@
             <a class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer">☰</a>
             <a class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer">☰</a>
             {% include "breadcrumbs.html" %}
+            {% include "searchbox.html" %}
         </div>
     </div>
 </header>
 
 {% block extrabody %} {% endblock %}
 
-<div id="sidedrawer" class="mui--no-user-select">
+<div id="sidedrawer" class="mui--no-user-select mui--z1">
   <div id="sidedrawer-brand" class="mui--appbar-line-height">
     {% block sidebartitle %}
     {% if logo and theme_logo_only %}
@@ -173,13 +174,15 @@
           <div class="rst-content mui-col-sm-10 mui-col-sm-offset-1">
           {% endif %}
             {% block toc %}
-            <div class="mui-panel mui--hidden-md mui--hidden-xs mui--hidden-sm" id="toc">
-              <div class="toc-heading">
-                <h4>目录</h4>
-                <a id="toc-hide" href="#">隐藏</a>
+              {% if toc %}
+              <div class="mui-panel mui--hidden-md mui--hidden-xs mui--hidden-sm" id="toc">
+                <div class="toc-heading">
+                  <h4>目录</h4>
+                  <a id="toc-hide" href="#">隐藏</a>
+                </div>
+                <div id="toc-content">{{ toc }}</div>
               </div>
-              <div id="toc-content">{{ toc }}</div>
-            </div>
+              {% endif%}
             {% endblock %}
             <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             {%- block document %}
@@ -194,11 +197,13 @@
             </div>
             {%- endblock %}
           </div>
+          {% block valine_comments %}
           <div class="mui-container-fluid mui-col-sm-10 mui-col-sm-offset-1">
             <div class="row mui-panel">
               <div id="vcomments"></div>
             </div>
           </div>
+          {% endblock %}
         {%- endblock %}
       </div>
       <div id="push"></div>

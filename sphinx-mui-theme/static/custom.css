@@ -26,6 +26,21 @@ html, body, input, textarea, buttons {
   transition: left 0.2s;
 }
 
+.search-box .mui-textfield {
+  padding-top: 0;
+}
+
+.search-box .mui-textfield>input {
+  color: #FFF;
+  border-bottom-color: rgba(255, 255, 255, 0.87);
+}
+
+.search-box .mui-textfield>input::placeholder,
+.search-box .mui-textfield>textarea::placeholder {
+  color: rgba(255, 255, 255, 0.87);
+  opacity: 1
+}
+
 #sidedrawer {
   position: fixed;
   top: 0;
@@ -474,4 +489,26 @@ dl.footnote {
   border-top: 1px #ccc solid;
   padding-top: 1em;
   margin-top: 1.5em;
+}
+
+.highlighted {
+  background: #F1C40F;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0 6px;
+}
+
+ul.search {
+  list-style: none;
+  padding-left: 0;
+}
+.search li {
+  padding: 1em 0;
+}
+.search li a {
+  font-size: 1.25em;
+  line-height: 1.5em;
+}
+.search li + li {
+  border-top: 1px #c0c0c0 solid;
 }

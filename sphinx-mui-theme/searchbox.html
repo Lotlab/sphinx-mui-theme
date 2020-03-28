@@ -1,0 +1,11 @@
+{%- if builder != 'singlehtml' %}
+<div role="search" class="mui--pull-right search-box">
+  <form class="mui-form--inline" action="{{ pathto('search') }}" method="get">
+    <div class="mui-textfield mui--align-middle">
+      <input type="text" name="q" placeholder="搜索…">
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </div>
+  </form>
+</div>
+{%- endif %}
