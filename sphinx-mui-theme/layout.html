@@ -172,6 +172,15 @@
           {% else %}
           <div class="rst-content mui-col-sm-10 mui-col-sm-offset-1">
           {% endif %}
+            {% block toc %}
+            <div class="mui-panel mui--hidden-md mui--hidden-xs mui--hidden-sm" id="toc">
+              <div class="toc-heading">
+                <h4>目录</h4>
+                <a id="toc-hide" href="#">隐藏</a>
+              </div>
+              <div id="toc-content">{{ toc }}</div>
+            </div>
+            {% endblock %}
             <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             {%- block document %}
              <div itemprop="articleBody">

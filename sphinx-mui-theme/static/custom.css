@@ -228,6 +228,7 @@ html, body, input, textarea, buttons {
   font-weight: 700;
   padding: 8px 16px;
   color: rgba(0, 0, 0, 0.6);
+  background-color: #F0F0F0;
 }
 
 .sidedrawer ul {
@@ -402,6 +403,7 @@ span.label {
   border-left: 5px gray solid;
 }
 
+/*
 .admonition:after, .admonition:before {
   content: " ";
   display: table
@@ -410,6 +412,7 @@ span.label {
 .admonition:after {
   clear: both
 }
+*/
 
 .admonition-title {
   font-weight: 700;
