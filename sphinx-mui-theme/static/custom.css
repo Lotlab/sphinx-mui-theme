@@ -267,7 +267,6 @@ html, body, input, textarea, buttons {
 #toc ul {
   padding: 0;
   margin: 0 0 0 2em;
-  list-style-type: decimal;
 }
 
 #toc .toc-heading {
@@ -281,14 +280,6 @@ html, body, input, textarea, buttons {
   display: inline;
 }
 
-#toc-hide::before {
-  content: "[";
-}
-
-#toc-hide::after {
-  content: "]";
-}
-
 /**
   * Main 
   */
@@ -299,7 +290,7 @@ html {
 }
 
 img {
-  max-width: 90%;
+  max-width: 100%;
   max-height: 40em;
 }
 
@@ -368,6 +359,10 @@ span.label {
   border-radius: .25em
 }
 
+h4, h5, h6 {
+  font-weight: 600;
+}
+
 .label-primary {
   background-color: #2196f3
 }
@@ -395,7 +390,8 @@ span.label {
 }
 
 .rst-content p.caption {
-  font-size: 1.5em;
+  font-size: 1.1em;
+  font-style: italic;
 }
 
 .rst-content {
