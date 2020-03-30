@@ -129,18 +129,12 @@ footer {
 }
 
 .search-box .mui-textfield {
-  padding-top: 0;
+  padding: 0.5em 1em;
+  margin: 0;
 }
 
-.search-box .mui-textfield>input {
-  color: #FFF;
-  border-bottom-color: rgba(255, 255, 255, 0.87);
-}
-
-.search-box .mui-textfield>input::placeholder,
-.search-box .mui-textfield>textarea::placeholder {
-  color: rgba(255, 255, 255, 0.87);
-  opacity: 1
+.search-box .mui-textfield input {
+  font-size: inherit;
 }
 
 /** Footer CSS */
@@ -329,7 +323,6 @@ h4, h5, h6 {
   font-weight: 600;
 }
 
-
 .rst-content {
   margin-bottom: 1em;
 }
@@ -454,13 +447,16 @@ ul.search {
   list-style: none;
   padding-left: 0;
 }
+
 .search li {
   padding: 1em 0;
 }
+
 .search li a {
   font-size: 1.25em;
   line-height: 1.5em;
 }
-.search li + li {
+
+.search li+li {
   border-top: 1px #c0c0c0 solid;
 }

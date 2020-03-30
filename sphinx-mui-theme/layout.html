@@ -112,7 +112,6 @@
             <a class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer">☰</a>
             <a class="sidedrawer-toggle mui--hidden-xs mui--hidden-sm js-hide-sidedrawer">☰</a>
             {% include "breadcrumbs.html" %}
-            {% include "searchbox.html" %}
         </div>
     </div>
 </header>
@@ -137,6 +136,8 @@
     </a>
     {% endblock %}
   </div>
+  <div class="mui-divider"></div>
+  {% include "searchbox.html" %}
   <div class="mui-divider"></div>
   <div class="sidedrawer-toc">
     {% block navigation %}
