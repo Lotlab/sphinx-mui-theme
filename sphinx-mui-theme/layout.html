@@ -166,49 +166,53 @@
   <div id="content-wrapper">
     <!-- Main content goes here -->
     <div class="mui--appbar-height"></div>
-      <div class="mui-container-fluid">
+    <div class="mui-container-fluid">
+      <div class="mui-row">
         {%- block content %}
           {% if theme_style_external_links|tobool %}
-          <div class="rst-content style-external-links mui-col-sm-10 mui-col-sm-offset-1">
+          <div class="rst-content style-external-links mui-col-sm-12 mui-col-md-7 mui-col-md-offset-1">
           {% else %}
-          <div class="rst-content mui-col-sm-10 mui-col-sm-offset-1">
+          <div class="rst-content mui-col-sm-12 mui-col-md-7 mui-col-md-offset-1">
           {% endif %}
-            {% block toc %}
-              {% if toc %}
-              <div class="mui-panel mui--hidden-md mui--hidden-xs mui--hidden-sm" id="toc">
-                <div class="toc-heading">
-                  <h4>目录</h4>
-                  <a id="toc-hide" href="#">隐藏</a>
-                </div>
-                <div id="toc-content">{{ toc }}</div>
-              </div>
-              {% endif%}
-            {% endblock %}
             <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             {%- block document %}
-             <div itemprop="articleBody">
+              <div itemprop="articleBody">
               {% block body %}{% endblock %}
-             </div>
-             {% if self.comments()|trim %}
-             <div class="articleComments">
+              </div>
+              {% if self.comments()|trim %}
+              <div class="articleComments">
               {% block comments %}{% endblock %}
-             </div>
-             {% endif%}
+              </div>
+              {% endif%}
             </div>
             {%- endblock %}
           </div>
-          {% block valine_comments %}
-            {% if theme_valine %}
-              <div class="mui-container-fluid mui-col-sm-10 mui-col-sm-offset-1">
-                <div class="row mui-panel">
-                  <div id="vcomments"></div>
-                </div>
+          {% block toc %}
+            {% if toc %}
+            <div class="mui-panel mui--hidden-sm mui--hidden-xs mui-col-md-3" id="toc">
+              <div class="toc-heading">
+                <h4>目录</h4>
+                <a id="toc-hide" href="#">隐藏</a>
               </div>
-            {% endif %}
+              <div id="toc-content">{{ toc }}</div>
+            </div>
+            {% endif%}
           {% endblock %}
-        {%- endblock %}
+        {%- endblock %}          
       </div>
-      <div id="push"></div>
+      <div class="mui-row">
+        {% block valine_comments %}
+          {% if theme_valine %}
+            <div class="mui-container-fluid mui-col-sm-12 mui-col-md-10 mui-col-md-offset-1">
+              <div class="row mui-panel">
+                <div id="vcomments"></div>
+              </div>
+            </div>
+          {% endif %}
+        {% endblock %}
+      </div>
+    </div>
+    <div id="push"></div>
   </div>
   {% include "footer.html" %}
 </div>
