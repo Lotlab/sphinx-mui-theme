@@ -106,7 +106,7 @@
 </head>
 
 <body>
-  <header id="header" class="mui--z2">
+  <header class="mui--z2">
     <div class="mui-appbar mui--appbar-line-height">
         <div class="mui-container-fluid">
             <a class="sidedrawer-toggle mui--visible-xs-inline-block mui--visible-sm-inline-block js-show-sidedrawer">☰</a>
@@ -119,8 +119,8 @@
 
 {% block extrabody %} {% endblock %}
 
-<div id="sidedrawer" class="mui--no-user-select mui--z1">
-  <div id="sidedrawer-brand" class="mui--appbar-line-height">
+<div id="sidedrawer" class="mui--no-user-select mui--z1 sidedrawer">
+  <div class="mui--appbar-line-height sidedrawer-brand">
     {% block sidebartitle %}
     {% if logo and theme_logo_only %}
       <a href="{{ pathto(master_doc) }}">
@@ -138,7 +138,7 @@
     {% endblock %}
   </div>
   <div class="mui-divider"></div>
-  <div class="sidedrawer">
+  <div class="sidedrawer-toc">
     {% block navigation %}
       {% block menu %}
         {#
@@ -189,7 +189,7 @@
           </div>
           {% block toc %}
             {% if toc %}
-            <div class="mui-panel mui--hidden-sm mui--hidden-xs mui-col-md-3" id="toc">
+            <div class="mui-panel mui--hidden-sm mui--hidden-xs mui-col-md-3 toc">
               <div class="toc-heading">
                 <h4>目录</h4>
               </div>
